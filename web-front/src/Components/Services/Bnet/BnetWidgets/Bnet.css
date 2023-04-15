@@ -1,0 +1,15 @@
+.card-account {
+    width: 50%;
+    height: 50%;
+    /* object-fit: cover; */
+}
+
+.card-text {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-color {
+    color: #fff;
+}

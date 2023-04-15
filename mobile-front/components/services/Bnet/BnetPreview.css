@@ -1,0 +1,11 @@
+.board-bnet {
+    background-color: #0192c7;
+}
+
+.board-bnet span {
+    color: #fff;    
+}
+.growth {
+
+    overflow-y: scroll;
+}

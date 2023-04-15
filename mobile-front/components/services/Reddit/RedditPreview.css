@@ -1,0 +1,10 @@
+.board-Reddit {
+    background-color: #FF5700;
+}
+
+.board-Reddit span {
+    color: #A5A4A4;    
+}
+.growth {
+    overflow-y: scroll;
+}

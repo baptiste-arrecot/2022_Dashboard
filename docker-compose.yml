@@ -1,0 +1,20 @@
+version: '3.3'
+services: 
+  front:
+    ports:
+      - "3000:3000"
+    build:
+      context: ./web-front
+      dockerfile: Dockerfile
+    volumes:
+      - ./web-front:/usr/src/app
+      - /usr/src/app/node_modules
+  api:
+   ports:
+     - "4000:4000"
+   build:
+     context: ./area-api
+     dockerfile: Dockerfile
+   volumes:
+     - ./area-api:/usr/src/app
+     - /usr/src/app/node_modules

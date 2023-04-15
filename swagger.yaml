@@ -1,0 +1,688 @@
+swagger: "2.0"
+info:
+  description: "Dashboard using different gaming apis(discord, twitch, battle.net and reddit)"
+  version: "1.0.0"
+  title: "Drainboard"
+  termsOfService: "http://swagger.io/terms/"
+host: "api.drainboard.tk"
+tags:
+- name: "auth"
+  description: "Everything about authentification and OAUTH"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "services"
+  description: "Services routes that retrieve api data"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
+schemes:
+- "http"
+paths:
+  /auth/register:
+    post:
+      tags:
+      - "auth"
+      description: "Register an user with the single username/password protocol"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/RegisterLogin"
+      responses:
+        "422":
+          description: "Unprocessable identity"
+        "401":
+          description: "Unauthorized"
+  /auth/login:
+    post:
+      tags:
+      - "auth"
+      description: "Login an user with the username/password protocol"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/RegisterLogin"
+      responses:
+        "422":
+          description: "Unprocessable identity"
+        "401":
+          description: "Unauthorized"
+  /auth/bnet:
+    get:
+      tags:
+      - "auth"
+      description: "Redirect on the battle.net authorization page"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jwt"
+        in: "query"
+        description: "Token to find your authentified account"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "302":
+          description: "Redirect"
+  /auth/bnet/return:
+    get:
+      tags:
+      - "auth"
+      description: "Redirect on the battle.net authorization page"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jwt"
+        in: "query"
+        description: "Token to find your authentified account"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+        "401":
+          description: "Unauthorized"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+  /auth/twitch:
+    get:
+      tags:
+      - "auth"
+      description: "Redirect on the Twitch authorization page"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jwt"
+        in: "query"
+        description: "Token to find your authentified account"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "302":
+          description: "Redirect"
+  /auth/twitch/return:
+    get:
+      tags:
+      - "auth"
+      description: "Redirect on the battle.net authorization page"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jwt"
+        in: "query"
+        description: "Token to find your authentified account"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+        "401":
+          description: "Unauthorized"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+  /auth/discord:
+    get:
+      tags:
+      - "auth"
+      description: "Redirect on the Discord authorization page"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jwt"
+        in: "query"
+        description: "Token to find your authentified account"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "302":
+          description: "Redirect"
+  /auth/discord/return:
+    get:
+      tags:
+      - "auth"
+      description: "Redirect on the Discord authorization page"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jwt"
+        in: "query"
+        description: "Token to find your authentified account"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+        "401":
+          description: "Unauthorized"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+  /auth/steam:
+    get:
+      tags:
+      - "auth"
+      description: "Redirect on the Steam authorization page"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jwt"
+        in: "query"
+        description: "Token to find your authentified account"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "302":
+          description: "Redirect"
+  /auth/steam/return:
+    get:
+      tags:
+      - "auth"
+      description: "Redirect on the Steam authorization page"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jwt"
+        in: "query"
+        description: "Token to find your authentified account"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+        "401":
+          description: "Unauthorized"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+  /auth/error:
+    get:
+      tags:
+      - "auth"
+      description: "Error on oauth with extern service"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+  /services:
+    get:
+      tags:
+      - "services"
+      description: "Get all current user's services"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jwt"
+        in: "query"
+        description: "Token to find your authentified account"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+        "401":
+          description: "Unauthorized"
+          
+  /services/:serviceName:
+    put:
+      tags:
+      - "services"
+      description: "Create the named service"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jwt"
+        in: "query"
+        description: "Token to find your authentified account"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      - name: "New Service"
+        in: "query"
+        description: "New service"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "201":
+          description: "Created"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ServiceResponse"
+        "401":
+          description: "Unauthorized"
+        "404":
+          description: "Not Found"
+        "500":
+          description: "Internal Server Error"
+    delete:
+      tags:
+      - "services"
+      description: "Delete the named service"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jwt"
+        in: "query"
+        description: "Token to find your authentified account"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ServiceResponse"
+        "401":
+          description: "Unauthorized"
+        "404":
+          description: "Not Found"
+        "500":
+          description: "Internal Server Error"
+  /services/Twitch/topstreams/:game_id:
+    get:
+      tags:
+      - "services"
+      description: "Get Top streams for a game"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "game_id"
+        in: "query"
+        description: "ID of the game"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+        "401":
+          description: "Unauthorized"
+  /services/Twitch/stream/:user_id:
+    get:
+      tags:
+      - "services"
+      description: "Get an user's stream"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "ID of the user"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Message"
+  /services/Twitch/topgames:
+    get:
+      tags:
+      - "services"
+      description: "Get Top games"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Message"
+  /services/Twitch/user/:user_id:
+    get:
+      tags:
+      - "services"
+      description: "Get an user's informations"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "ID of the user"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Message"
+  /services/Twitch/followedusers/:user_id:
+    get:
+      tags:
+      - "services"
+      description: "Get an user's followed users"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "user_id"
+          in: "query"
+          description: "ID of the user"
+          required: true
+          type: "string"
+          collectionFormat: "multi"
+      responses:
+          "200":
+            description: "successful operation"
+            schema:
+              type: "object"
+              items:
+                $ref: "#/definitions/Message"
+  /services/Twitch/followedstreams/:user_token/:user_id:
+      get:
+        tags:
+        - "services"
+        description: "Get user's twitch's user followed streams"
+        produces:
+          - "application/json"
+        parameters:
+          - name: "user_id"
+            in: "query"
+            description: "ID of the user"
+            required: true
+            type: "string"
+            collectionFormat: "multi"
+          - name: "user_token"
+            in: "query"
+            description: "token of the user"
+            required: true
+            type: "string"
+            collectionFormat: "multi"
+        responses:
+          "200":
+            description: "successful operation"
+            schema:
+              type: "object"
+              items:
+                $ref: "#/definitions/Message"
+  /services/Twitch/myprofile/:user_token:
+      get:
+        tags:
+        - "services"
+        description: "Get an user's followed streams"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "user_token"
+          in: "query"
+          description: "token of the user"
+          required: true
+          type: "string"
+          collectionFormat: "multi"
+        responses:
+          "200":
+            description: "successful operation"
+            schema:
+              type: "object"
+              items:
+                $ref: "#/definitions/Message"
+          "401":
+            description: "Unauthorized"
+  /services/Twitch/update_description/:user_token:
+    post:
+        tags:
+        - "services"
+        description: "Modify twitch user's description"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "user_token"
+          in: "query"
+          description: "token of the user"
+          required: true
+          type: "string"
+          collectionFormat: "multi"
+        responses:
+          "200":
+            description: "successful operation"
+            schema:
+              type: "object"
+              items:
+                $ref: "#/definitions/Message"
+          "401":
+            description: "Unauthorized"
+  /services/bnet/searchCards:
+    get:
+      tags:
+      - "services"
+      description: "Search cards from a query"
+      produces:
+      - "application/json"
+      parameters:
+        - name: "access_token"
+          in: "query"
+          description: "access Token for bnet apis"
+          required: true
+          type: "string"
+          collectionFormat: "multi"
+        - name: "search"
+          in: "query"
+          description: "Search query to find special cards"
+          required: true
+          type: "string"
+          collectionFormat: "multi"
+      responses:
+          "200":
+            description: "successful operation"
+            schema:
+              type: "object"
+              items:
+                $ref: "#/definitions/Message"
+          "401":
+            description: "Unauthorized"
+          "404":
+            description: "Not Found"
+  /services/bnet/wowprofile:
+    get:
+      tags:
+      - "services"
+      description: "Retrieve profile with the differents character"
+      produces:
+      - "application/json"
+      parameters:
+        - name: "access_token"
+          in: "query"
+          description: "access Token for bnet apis"
+          required: true
+          type: "string"
+          collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Message"
+        "401":
+          description: "Unauthorized"
+        "404":
+            description: "Not Found"
+  /services/bnet/SC2Ladder:
+    get:
+        tags:
+          - "services"
+        description: "Retrieve Bnet Ladder in EU section"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "access_token"
+          in: "query"
+          description: "access Token for bnet apis"
+          required: true
+          type: "string"
+          collectionFormat: "multi"
+        responses:
+          "200":
+            description: "successful operation"
+            schema:
+              type: "object"
+              items:
+                $ref: "#/definitions/Message"
+          "401":
+            description: "Unauthorized"
+          "404":
+            description: "Not Found"
+  /services/reddit/searchSubreddit:
+    get:
+        tags:
+          - "services"
+        description: "Retrieve subreddit posts from a query"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "filter"
+          in: "query"
+          description: "Change the order of the posts"
+          required: true
+          type: "string"
+          collectionFormat: "multi"
+        - name: "search"
+          in: "query"
+          description: "Search query to find posts"
+          required: true
+          type: "string"
+          collectionFormat: "multi"
+        responses:
+          "200":
+            description: "successful operation"
+            schema:
+              type: "object"
+              items:
+                $ref: "#/definitions/Message"
+          "401":
+            description: "Unauthorized"
+          "404":
+            description: "Not Found"
+  /services/reddit/Profile:
+    get:
+        tags:
+          - "services"
+        description: "Retrieve subreddit posts from a query"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "access_token"
+          in: "query"
+          description: "access Token for reddit apis"
+          required: true
+          type: "string"
+          collectionFormat: "multi"
+        responses:
+          "200":
+            description: "successful operation"
+            schema:
+              type: "object"
+              items:
+                $ref: "#/definitions/Message"
+          "401":
+            description: "Unauthorized"
+securityDefinitions:
+  test:
+    type: "oauth2"
+    authorizationUrl: "http://Messagestore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:Messages: "modify Messages in your account"
+      read:Messages: "read your Messages"
+  jwt:
+    type: "apiKey"
+    name: "jwt"
+    in: "header"
+definitions:
+  RegisterLogin:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+      password:
+        type: "string"
+  NewContent:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      parameters:
+        type: "object"
+  Message:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+  ServiceResponse:
+    type: "object"
+    properties:
+      name: 
+        type: "string"
+      logoUrl: 
+        type: "string"
+      tokens:
+        type: "object"
+      widgets: 
+        type: "object"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

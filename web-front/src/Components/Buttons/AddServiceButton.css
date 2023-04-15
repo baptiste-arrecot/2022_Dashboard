@@ -1,0 +1,31 @@
+.add-widget {
+    background-color: #fff;
+    border-radius: 25px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: #2cc1bc;
+    border-width: 7px;
+    border-style: solid;
+    color: #2cc1bc;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    user-select: none;
+
+}
+
+.add-widget:hover {
+    background-color: #2cc1bc;
+    border-color: #2cc1bc;
+    color: #fff;
+}
+
+.add-widget:active {
+    background-color: #2cc1bc;
+    border-color: #2cc1bc;
+    color: #fff;
+    transition: all 0.01s ease-in-out;
+    transform: scale(0.9);
+}
